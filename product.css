@@ -183,6 +183,7 @@ body{
     color:white;
     font-size:22px;
     cursor:pointer;
+    margin-bottom: 15px;
 }
 .menu-btn:hover{
     background:#145A32;
@@ -309,25 +310,6 @@ body{
     background:#0B4A34;
     color:white;
 }
-.card{
-    position:relative;
-}
-.card-menu{
-    position:absolute;
-    top:12px;
-    right:12px;
-}
-.menu-icon{
-    background:none;
-    border:none;
-    font-size:22px;
-    cursor:pointer;
-    color:#888;
-    padding:4px 8px;
-}
-.menu-icon:hover{
-    color:#0B4A34;
-}
 
 /* ==========================
         DASHBOARD
@@ -391,4 +373,108 @@ body{
     padding:12px 20px;
     border-radius:10px;
     cursor:pointer;
+}
+
+/* ==========================
+        MODAL
+========================== */
+.modal{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.55);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+.modal-box{
+    width:430px;
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    animation:popup .25s;
+}
+@keyframes popup{
+    from{
+        transform:scale(.8);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+.modal-box h2{
+    color:#0B4A34;
+    margin-bottom:25px;
+}
+.form-group{
+    margin-bottom:18px;
+}
+.form-group label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:12px;
+    border:2px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+}
+.modal-buttons{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:20px;
+}
+.save-btn{
+    background:#0B4A34;
+    color:white;
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    cursor:pointer;
+}
+.cancel-btn{
+    background:#d9534f;
+    color:white;
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    cursor:pointer;
+}
+.save-btn:hover{
+    background:#145A32;
+}
+.cancel-btn:hover{
+    background:#c9302c;
+}
+
+/* ==========================
+        TOAST NOTIFICATION
+========================== */
+.toast{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    background:#0B4A34;
+    color:white;
+    padding:15px 25px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+    font-size:15px;
+    opacity:0;
+    transform:translateY(30px);
+    transition:.35s;
+    z-index:9999;
+}
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
 }
