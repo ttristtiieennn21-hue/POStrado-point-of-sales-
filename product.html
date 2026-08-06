@@ -183,7 +183,7 @@
         </div>
         <div class="modal-buttons">
 
-            <button class="save-btn" onclick="saveProduct()">
+            <button class="save-btn" onclick="addProduct()">
                 Save
             </button>
 
@@ -200,316 +200,78 @@
 </div>
 
 <script>
+const productsContainer = document.querySelector(".products");
 
-// ================= SIDEBAR =================
-function toggleSidebar(){
+function toggleSidebar() {
     document.querySelector(".sidebar").classList.toggle("hide");
 }
 
-// ================= VARIABLES =================
-let products = JSON.parse(localStorage.getItem("products")) || [];
-let editingIndex = -1;
-let selectedImage = "";
-
-// ================= OPEN ADD PRODUCT =================
-function openAddModal(){
-    editingIndex = -1;
-    selectedImage = "";
-    document.getElementById("modalTitle").innerHTML = "Add New Product";
-    document.getElementById("productName").value = "";
-    document.getElementById("productPrice").value = "";
-    document.getElementById("productStock").value = "";
-    document.getElementById("productCategory").value = "Feeds";
-    document.getElementById("productImage").value = "";
+function openModal(title = "Add New Product") {
+    document.getElementById("modalTitle").innerText = title;
     document.getElementById("productModal").style.display = "flex";
 }
 
-// ================= CLOSE MODAL =================
-function closeModal(){
+function closeModal() {
     document.getElementById("productModal").style.display = "none";
 }
 
+function addProduct() {
+    const name = document.getElementById("productName").value;
+    const price = document.getElementById("productPrice").value;
+    const stock = document.getElementById("productStock").value;
+    const category = document.getElementById("productCategory").value;
+    const image = document.getElementById("productImage");
 
-// ================= SAVE PRODUCT =================
-function saveProduct(){
-    let name = document.getElementById("productName").value;
-    let price = document.getElementById("productPrice").value;
-    let stock = document.getElementById("productStock").value;
-    let category = document.getElementById("productCategory").value;
-    let imageInput = document.getElementById("productImage");
-
-    // Check empty fields
-    if(name == "" || price == "" || stock == ""){
-        alert("Please complete the product information.");
+    if (name === "" || price === "" || stock === "") {
+        alert("Please complete all fields.");
         return;
     }
 
-    // If image selected
-    if(imageInput.files.length > 0){
-        let reader = new FileReader();
-        reader.onload = function(event){
-            selectedImage = event.target.result;
-            finishSave(name, price, stock, category);
-        };
-        reader.readAsDataURL(imageInput.files[0]);
-    }
-    else{
-        finishSave(name, price, stock, category);
-    }
-}
+    const card = document.createElement("div");
+    card.className = "card";
 
-// ================= FINISH SAVE =================
-function finishSave(name, price, stock, category){
-    let product = {
-        name: name,
-        price: Number(price),
-        stock: Number(stock),
-        category: category,
-        image: selectedImage
-    };
+    let imageHTML = `<div class="product-image">Product Image</div>`;
 
-    // ADD PRODUCT
-    let message;
+    if (image.files.length > 0) {
+        const reader = new FileReader();
 
-    if(editingIndex == -1){
-        products.push(product);
-        message = "✅ Product saved.";
-    }
+        reader.onload = function(e) {
+            card.innerHTML = `
+                <img src="${e.target.result}" class="product-image">
+                <h3>${name}</h3>
+                <p class="price">₱${Number(price).toFixed(2)}</p>
+                <p class="stock">In Stock (${stock})</p>
 
-    // EDIT PRODUCT
-    else{
-        products[editingIndex] = product;
-        message = "✏️ Product updated.";
-    }
-    saveToLocalStorage();
-    displayProducts();
-    updateDashboard();
-    closeModal();
-    showToast(message);
-}
-
-function saveToLocalStorage(){
-    localStorage.setItem("products", JSON.stringify(products));
-}
-
-// ================= DISPLAY PRODUCTS =================
-function displayProducts(){
-    let productContainer = document.getElementById("products");
-    productContainer.innerHTML = "";
-    for(let i = 0; i < products.length; i++){
-        let product = products[i];
-
-        // PRODUCT IMAGE
-        let imageHTML = "Product Image";
-        if(product.image != ""){
-            imageHTML = `
-                <img src="${product.image}" 
-                style="
-                width:100%;
-                height:100%;
-                object-fit:cover;
-                border-radius:10px;
-                ">
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
             `;
-        }
 
-        // STOCK STATUS
-        let stockText = "In Stock";
-        if(product.stock == 0){
-            stockText = "Out of Stock";
-        }
-        else if(product.stock <= 5){
-            stockText = "Low Stock";
-        }
+            productsContainer.appendChild(card);
+        };
 
-        // CREATE CARD
-        productContainer.innerHTML += `
-            <div class="card">
-                <div class="product-image">
-                    ${imageHTML}
-                </div>
-                <h3>${product.name}</h3>
-                <p class="price">
-                    ₱${product.price.toFixed(2)}
-                </p>
-                <p class="stock">
-                    ${stockText} (${product.stock})
-                </p>
-                <button class="edit-btn" onclick="editProduct(${i})">
-                    Edit
-                </button>
-                <button class="delete-btn" onclick="deleteProduct(${i})">
-                    Delete
-                </button>
-            </div>
+        reader.readAsDataURL(image.files[0]);
+    } else {
+        card.innerHTML = `
+            ${imageHTML}
+            <h3>${name}</h3>
+            <p class="price">₱${Number(price).toFixed(2)}</p>
+            <p class="stock">In Stock (${stock})</p>
+
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
         `;
-    }
-}
 
-// ================= EDIT PRODUCT =================
-function editProduct(index){
-    editingIndex = index;
-    let product = products[index];
-    selectedImage = product.image;
-    document.getElementById("modalTitle").innerHTML = "Edit Product";
-    document.getElementById("productName").value =
-        product.name;
-    document.getElementById("productPrice").value =
-        product.price;
-    document.getElementById("productStock").value =
-        product.stock;
-    document.getElementById("productCategory").value =
-        product.category;
+        productsContainer.appendChild(card);
+    }
+
+    document.getElementById("productName").value = "";
+    document.getElementById("productPrice").value = "";
+    document.getElementById("productStock").value = "";
+    document.getElementById("productCategory").selectedIndex = 0;
     document.getElementById("productImage").value = "";
-    document.getElementById("productModal").style.display =
-        "flex";
-}
 
-// ================= DELETE PRODUCT =================
-function deleteProduct(index){
-    products.splice(index, 1);
-    saveToLocalStorage();
-    displayProducts();
-    updateDashboard();
-    updatePagination();
-    showToast("🗑️ Product deleted.");
+    closeModal();
 }
-
-// ================= UPDATE DASHBOARD =================
-function updateDashboard(){
-    let totalProducts = products.length;
-    let lowStock = 0;
-    let categories = [];
-    let totalValue = 0;
-    for(let i = 0; i < products.length; i++){
-
-        // Low stock
-        if(products[i].stock <= 5){
-            lowStock++;
-        }
-
-        // Categories
-        if(!categories.includes(products[i].category)){
-            categories.push(products[i].category);
-        }
-
-        // Inventory value
-        totalValue +=
-            products[i].price * products[i].stock;
-    }
-    let cards = document.querySelectorAll(".summary-card h2");
-    cards[0].innerHTML = totalProducts;
-    cards[1].innerHTML = lowStock;
-    cards[2].innerHTML = categories.length;
-    cards[3].innerHTML =
-        "₱" + totalValue.toFixed(2);
-}
-let currentPage = 1;
-function goToPage(page){
-    currentPage = page;
-    updatePagination();
-}
-function nextPage(){
-    if(currentPage < 10){
-        currentPage++;
-        updatePagination();
-    }
-}
-function previousPage(){
-    if(currentPage > 1){
-        currentPage--;
-        updatePagination();
-    }
-}
-function updatePagination(){
-    let buttons = document.querySelectorAll(".page-btn");
-    buttons.forEach(button => {
-        button.classList.remove("current");
-        if(Number(button.innerHTML) === currentPage){
-            button.classList.add("current");
-        }
-    });
-}
-function updateDateTime(){
-    const now = new Date();
-    const optionsDate = {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    };
-    const date = now.toLocaleDateString("en-US", optionsDate);
-    const day = now.toLocaleDateString("en-US", {
-        weekday: "long"
-    });
-    const time = now.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        second: "2-digit"
-    });
-    document.getElementById("currentDate").innerHTML =
-        "📅 " + date;
-    document.getElementById("currentTime").innerHTML =
-        day + " • " + time;
-}
-document.getElementById("importFile").addEventListener("change", function(e){
-    const file = e.target.files[0];
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = function(event){
-        try{
-            const importedProducts = JSON.parse(event.target.result);
-            products = importedProducts;
-            saveToLocalStorage();
-            displayProducts();
-            updateDashboard();
-            updatePagination();
-            showToast("✅ Products imported successfully!");
-        }catch(error){
-            alert("Invalid JSON file.");
-        }
-    };
-    reader.readAsText(file);
-});
-function exportProducts(){
-    if(products.length === 0){
-        showToast("📦 No products to export.");
-        return;
-    }
-    const data = JSON.stringify(products, null, 2);
-    const blob = new Blob([data], {type:"application/json"});
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    const today = new Date();
-    const filename =
-        "Products_" +
-        today.getFullYear() + "-" +
-        String(today.getMonth()+1).padStart(2,"0") + "-" +
-        String(today.getDate()).padStart(2,"0") +
-        ".json";
-
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-}
-function showToast(message){
-    const toast = document.getElementById("toast");
-    toast.innerHTML = message;
-    toast.classList.add("show");
-    setTimeout(function(){
-        toast.classList.remove("show");
-    },2500);
-}
-
-updateDateTime();
-displayProducts();
-updateDashboard();
-updatePagination();
-updateDateTime();
-setInterval(updateDateTime,1000);
-
 </script>
 <div id="toast" class="toast"></div>
 
