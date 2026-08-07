@@ -1,90 +1,258 @@
+/* ===========================
+        GENERAL SETTINGS
+        note* this are the changes i made to the original design.css file
+        and some of this are visual changes to the original
+=========================== */
+
 *{
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
 }
+
+/* ===========================
+        PAGE BACKGROUND
+=========================== */
 
 body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(#dbd5d5, #4e32ca);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+
+    background-image:url("background_pos.png");
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
 }
+
+/* ===========================
+        CONTAINER
+=========================== */
 
 .container{
-   margin: 0 20px;
-   
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    transform: translateY(100px);
 }
 
-.form-box{
-    width: 100%;
-    max-width: 400px;
-    padding: 40px;
-    background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-    display: none;
+/* Holds the login card and the info */
+.login-section{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
 
+/* ===========================
+        LOGIN & REGISTER BOX
+=========================== */
+
+.form-box{
+
+    display:none;
+    width:420px;
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0px 10px 25px rgba(0,0,0,0.25);
 }
 
 .form-box.active{
-    display: block;
+    display:block;
 }
+
+/* ===========================
+            TITLE
+=========================== */
 
 h2{
-    text-align: center;
-    font-size:30px;
-    margin-bottom: 35px;
+    font-size:40px;
+    text-align:center;
+    color:#0B4A34;
+    margin-bottom:10px;
 }
 
-input{
-    width: 100%;
-    padding: 10px 0;
-    margin: 10px 0;
-    background: #00000041;
-    border: none;
-    outline: none;
+.subtitle{
+    font-size:16px;
+    text-align:center;
+    color:gray;
+    margin-bottom:30px;
 }
+
+/* ===========================
+            LABEL
+=========================== */
 
 label{
-    font-size: 18px;
-    color: #333;
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+    color:#333;
+    font-weight:bold;
 }
 
-p{
-    font-size: 16px;
-    color: #666;
-    text-align: center;
-    margin-top: 20px;
+/* ===========================
+          TEXTBOX
+=========================== */
+
+input[type="email"],
+input[type="password"]{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
 }
 
-a{
-    color: #4e32ca;
-    text-decoration: none;
-}
+/* ===========================
+            BUTTON
+=========================== */
 
 button{
-    width: 100%;
-    padding: 10px 0;
-    margin: 10px 0;
-    background: #4e32ca;
-    border: none;
-    outline: none;
-    color: #fff;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
+    width:100%;
+    padding:12px;
+    margin-top:20px;
+    background:#0B4A34;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
 }
 
 button:hover{
-    background: #3b27a1;
+    background:#145A32;
 }
 
-.error-message{
-    color: red;
-    font-size: 14px;
-    margin-bottom: 10px;
+/* ===========================
+          HORIZONTAL LINE
+=========================== */
+
+hr{
+    margin:25px 0;
+    border:1px solid #ddd;
+}
+
+/* ===========================
+            TEXT
+=========================== */
+p{
+    text-align:center;
+    margin-top:10px;
+}
+
+a{
+    color:#D4AF37;
+    text-decoration:none;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+/* ===========================
+      LOGIN BELOW INFORMATION
+=========================== */
+
+.login-info{
+    width:420px;
+    margin-top:20px;
+    text-align:center;
+    color:Black;
+}
+
+.info-badge{
+    width:60px;
+    height:60px;
+    margin:0 auto 15px;
+    border-radius:50%;
+    background:#145A32;
+    color:#0B4A34;
+    font-weight:bold;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 5px 15px rgba(0,0,0,.25);
+}
+
+.login-info h3{
+    color:Black;
+    font-size:24px;
+    margin-bottom:10px;
+}
+
+.login-info p{
+    margin:0;
+    color:Black;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.version{
+    margin-top:10px;
+    color:#CFCFCF;
+    font-size:12px;
+}
+/* Bottom Information Table */
+.feature-table{
+    width: 900px;
+    margin: 30px auto;
+    background: #0B4A34;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.25);
+
+    border-collapse: separate;
+    border-spacing: 30px 0;
+}
+
+.feature-table td{
+    width: 33.33%;
     text-align: center;
+    vertical-align: top;
+    color: white;
+    padding: 10px;
+}
+
+.feature-table img{
+    width: 50px;
+    height: 50px;
+    margin-bottom: 15px;
+}
+
+.feature-table h3{
+    color: #D4AF37;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.feature-table p{
+    color: white;
+    line-height: 1.6;
+    font-size: 14px;
+    text-align: center;
+}
+.divider{
+     display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.divider hr{
+    flex: 1;
+    border: none;
+    height: 1px;
+    background: #D4AF37;
+}
+
+.divider .subtitle{
+    margin: 0 15px;
+    color: #D4AF37;
+    font-size: 16px;
+
 }
