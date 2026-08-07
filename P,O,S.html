@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Himpisao Feeds and Agri supplies</title>
+
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Login Section -->
+    <div class="login-section">
+
+        <!-- ================= LOGIN ================= -->
+        <div class="form-box active" id="login">
+
+            <form action="login-register.php" method="post">
+
+                <h2>Welcome Back!</h2>
+
+<div class="divider">
+
+    <hr>
+
+    <span class="subtitle">
+        Please sign in to continue
+    </span>
+
+    <hr>
+
+</div>
+            
+                <label>Email Address</label>
+                <input
+                    type="email"
+                    name="Email"
+                    placeholder="Enter your email"
+                    required>
+
+                <label>Password</label>
+                <input
+                    type="password"
+                    name="Password"
+                    placeholder="Enter your password"
+                    required>
+
+                <button
+                    type="submit"
+                    name="login">
+                    Login
+                </button>
+
+                <hr>
+
+                <p>Don't have an account?</p>
+
+                <button
+                    type="button"
+                    onclick="toggleForm('register')">
+                    Create New Account
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- ================= REGISTER ================= -->
+        <div class="form-box" id="register">
+
+            <form action="login-register.php" method="post">
+
+                <h2>Create Account</h2>
+
+                <p class="subtitle">
+                    Register your account
+                </p>
+
+                <label>Email Address</label>
+                <input
+                    type="email"
+                    name="Email"
+                    placeholder="Enter your email"
+                    required>
+
+                <label>Password</label>
+                <input
+                    type="password"
+                    name="Password"
+                    placeholder="Enter your password"
+                    required>
+
+                <label>Confirm Password</label>
+                <input
+                    type="password"
+                    name="Confirm-Password"
+                    placeholder="Confirm your password"
+                    required>
+
+                <button
+                    type="submit"
+                    name="register">
+                    Register
+                </button>
+
+                <hr>
+
+                <p>Already have an account?</p>
+
+                <button
+                    type="button"
+                    onclick="toggleForm('login')">
+                    Back to Login
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- ================= LOGIN INFO ================= -->
+       <table class="feature-table">
+            <tr>
+                <td>
+                    <img src="Quality.png" alt="Quality">
+                    <h3>Product Quality</h3>
+                    <p>
+                        We provide only the best quality
+                        products to ensure customer
+                        satisfaction and trust in every purchase.
+                    </p>
+                </td>
+
+                <td>
+                    <img src="Growth.png" alt="Growth">
+                    <h3>Business Growth</h3>
+                    <p>
+                        Empowering businesses with smart
+                        solution that drive growth, 
+                        efficeny and long-term success.
+                    </p>
+                </td>
+
+                <td>
+                    <img src="Efficiency.png" alt="Efficiency">
+                    <h3>Work Effciency</h3>
+                    <p>
+                        Streamlined processes and modern
+                        systems that save time, reduce
+                        errors, and boost  productivity.
+                    </p>
+                </td>
+            </tr>
+       </table>
+
+    </div>
+
+</div>
+
+<script>
+
+function toggleForm(formId){
+
+    document.querySelectorAll(".form-box").forEach(function(form){
+        form.classList.remove("active");
+    });
+
+    document.getElementById(formId).classList.add("active");
+
+}
+
+</script>
+
+</body>
+</html>
