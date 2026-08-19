@@ -378,83 +378,353 @@ body{
 /* ==========================
         MODAL
 ========================== */
-.modal{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.55);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    z-index: 999;
 }
-.modal-box{
-    width:430px;
-    background:white;
-    border-radius:18px;
-    padding:30px;
-    animation:popup .25s;
+
+
+/* =========================================
+   PRODUCT PANEL / MODAL BOX
+========================================= */
+
+.modal-box {
+    width: 90%;
+    max-width: 850px;
+
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border-radius: 15px;
+
+    padding: 30px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e5e5e5;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+    animation: popup 0.25s ease;
 }
-@keyframes popup{
-    from{
-        transform:scale(.8);
-        opacity:0;
+
+
+/* =========================================
+   POPUP ANIMATION
+========================================= */
+
+@keyframes popup {
+
+    from {
+        transform: scale(0.8);
+        opacity: 0;
     }
-    to{
-        transform:scale(1);
-        opacity:1;
+
+    to {
+        transform: scale(1);
+        opacity: 1;
     }
+
 }
-.modal-box h2{
-    color:#0B4A34;
-    margin-bottom:25px;
+
+
+/* =========================================
+   PANEL TITLE
+========================================= */
+
+.modal-box h2 {
+    margin: 0 0 25px;
+
+    font-size: 28px;
+
+    color: #0B4A34;;
+
+    border-bottom: 2px solid #eee;
+
+    padding-bottom: 15px;
 }
-.form-group{
-    margin-bottom:18px;
+
+
+/* =========================================
+   PRODUCT IMAGE
+========================================= */
+
+#product_img {
+
+    margin-bottom: 25px;
+
+    padding: 20px;
+
+    border: 2px dashed #bbb;
+
+    border-radius: 10px;
+
+    background: #fafafa;
+
+    text-align: center;
+
 }
-.form-group label{
-    display:block;
-    margin-bottom:8px;
-    font-weight:bold;
+
+
+#product_img label {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #333;
+
 }
+
+
+#product_img input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 10px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 15px;
+
+}
+
+
+/* =========================================
+   FORM GROUP
+========================================= */
+
+.form-group {
+
+    margin-bottom: 20px;
+
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #333;
+
+}
+
+
+/* =========================================
+   INPUT FIELDS
+========================================= */
+
 .form-group input,
-.form-group select{
-    width:100%;
-    padding:12px;
-    border:2px solid #ddd;
-    border-radius:10px;
-    font-size:15px;
+.form-group select {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    background: #fafafa;
+
+    transition: 0.2s ease;
+
 }
-.modal-buttons{
-    display:flex;
-    justify-content:flex-end;
-    gap:10px;
-    margin-top:20px;
+
+
+.form-group input:focus,
+.form-group select:focus {
+
+    border-color: #2e7d32;
+
+    background: #ffffff;
+
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+
 }
-.save-btn{
-    background:#0B4A34;
-    color:white;
-    border:none;
-    padding:12px 22px;
-    border-radius:10px;
-    cursor:pointer;
+
+
+/* =========================================
+   PRICE SECTION
+========================================= */
+
+.form-group h2 {
+
+    margin: 0 0 15px;
+
+    font-size: 18px;
+
+    color: #222;
+
+    border: none;
+
+    padding: 0;
+
 }
-.cancel-btn{
-    background:#d9534f;
-    color:white;
-    border:none;
-    padding:12px 22px;
-    border-radius:10px;
-    cursor:pointer;
+
+
+.price-section {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 15px;
+
 }
-.save-btn:hover{
-    background:#145A32;
+
+
+/* =========================================
+   PRICE BOX
+========================================= */
+
+.price-item {
+
+    background: #f8f9f8;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    border: 1px solid #ddd;
+
 }
-.cancel-btn:hover{
-    background:#c9302c;
+
+
+.price-item label {
+
+    font-size: 13px;
+
+    color: #555;
+
 }
+
+
+.price-item input {
+
+    margin-top: 5px;
+
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.modal-buttons {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 30px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #eee;
+
+}
+
+
+.modal-buttons button {
+
+    padding: 12px 25px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+}
+
+
+/* =========================================
+   SAVE BUTTON
+========================================= */
+
+.save-btn {
+
+    background: #0B4A34;
+
+    color: white;
+
+}
+
+
+.save-btn:hover {
+
+    background: #040c05;
+
+    transform: translateY(-1px);
+
+}
+
+
+/* =========================================
+   CANCEL BUTTON
+========================================= */
+
+.cancel-btn {
+
+    background: #e0e0e0;
+
+    color: #333;
+
+}
+
+
+.cancel-btn:hover {
+
+    background: #ccc;
+
+}
+
 
 /* ==========================
         TOAST NOTIFICATION
