@@ -137,6 +137,41 @@
 
     <!-- ================= PRODUCTS ================= -->
 <div class="products" id="products">
+     <div class="product-card">
+
+    <div class="product-image">
+        Product Image
+    </div>
+
+    <div class="product-info">
+
+        <h3>blank</h3>
+
+        <div class="price-list">
+            <p><strong>1 pc:</strong> ₱100.00</p>
+            <p><strong>2 pcs:</strong> ₱190.00</p>
+            <p><strong>3 pcs:</strong> ₱270.00</p>
+        </div>
+
+        <span class="stock">Low Stock (5)</span>
+
+        <div class="product-details">
+            <p><strong>Category:</strong> Feeds</p>
+
+            <p>
+                <strong>Description:</strong>
+                High quality feeds for farm animals.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="product-actions">
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn">Delete</button>
+    </div>
+
+    </div>
 </div>
 
 <!-- ================= PAGINATION ================= -->
