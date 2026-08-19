@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Himpisao Feeds and Agri supplies</title>
+
+    <link rel="stylesheet" href="product.css">
+    <script src="Backend.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+    <!-- Logo -->
+    <div class="logo">
+        <h2>Himpisao</h2>
+<p class="company-name">Feeds and Agri Supplies</p>
+    </div>
+
+    <!-- Navigation -->
+    <ul class="menu">
+        <li class="active">
+            📦
+            <span>Products</span>
+        </li>
+        <li>
+            🛒
+            <span>Checkout</span>
+        </li>
+        <li>
+            📋
+            <span>Orders</span>
+        </li>
+        <li>
+            👥
+            <span>Customers</span>
+        </li>
+        <li>
+            📦
+            <span>Inventory</span>
+        </li>
+        <li>
+            📊
+            <span>Reports</span>
+        </li>
+        <li>
+            ⚙️
+            <span>Settings</span>
+        </li>
+    </ul>
+    
+    <!-- Logout -->
+    <button class="logout" onclick="location.href='P,O,S.html'">
+    Logout
+</button>
+</aside>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <!-- ================= HEADER ================= -->
+<div class="header">
+
+    <!-- Left Side -->
+    <div class="header-left">
+    <div class="header-title">
+        <h2>📦 Products</h2>
+        <p>Manage your products and inventory</p>
+    </div>
+</div>
+
+    <!-- Right Side -->
+    <div class="header-right">
+        <div class="header-date">
+    <h3 id="currentDate"></h3>
+    <p id="currentTime"></p>
+</div>
+        <div class="header-user">
+            <div class="user-icon">
+                👤
+            </div>
+            <div class="user-info">
+                <h4>Cashier</h4>
+                <p>Person 1</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="menu-btn" onclick="toggleSidebar()">
+        ☰
+    </button>
+
+    <!-- ================= DASHBOARD ================= -->
+<div class="dashboard">
+    <div class="summary-card">
+        <h2>0</h2>
+        <p>Total Products</p>
+    </div>
+    <div class="summary-card">
+        <h2>0</h2>
+        <p>Low Stock</p>
+    </div>
+    <div class="summary-card">
+        <h2>0</h2>
+        <p>Categories</p>
+    </div>
+    <div class="summary-card">
+        <h2>₱0</h2>
+        <p>Total Inventory Value</p>
+    </div>
+</div>
+
+<!-- ================= TOOLBAR ================= -->
+
+<div class="toolbar">   
+    <input type="text" placeholder="Search products...">
+    <div class="toolbar-buttons">
+        <button class="btn-primary" onclick="openAddModal()">
+    + New Product
+</button>
+        <button class="btn-secondary" onclick="document.getElementById('importFile').click()">
+            Import
+        </button>
+        <button class="btn-secondary" onclick="exportProducts()">
+            Export
+        </button>
+    </div>
+    <input type="file" id="importFile" accept=".json" style="display:none;">
+</div>
+
+    <!-- ================= PRODUCTS ================= -->
+<div class="products" id="products">
+</div>
+
+<!-- ================= PAGINATION ================= -->
+<div class="pagination">
+    <button onclick="previousPage()">&lt;</button>
+    <button class="page-btn current" onclick="goToPage(1)">1</button>
+    <button class="page-btn" onclick="goToPage(2)">2</button>
+    <button class="page-btn" onclick="goToPage(3)">3</button>
+    <button disabled>...</button>
+    <button class="page-btn" onclick="goToPage(10)">10</button>
+    <button onclick="nextPage()">&gt;</button>
+</div>
+
+</main>
+
+</div>
+
+<!-- ================= PRODUCT MODAL ================= -->
+
+<div class="modal" id="productModal">
+    <div class="modal-box">
+        <h2 id="modalTitle">Add New Product</h2>
+       
+        <div id="product_img">
+            <label>Product Image</label>
+            <input type="file" id="productImage" accept="image/*">
+        </div>
+
+        <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" id="productName">
+        </div>
+
+        <div class="form-group">
+            <h2>Prices Quantity</h2>
+
+            <div class="price-section">
+
+                <div class="price-item">
+                    <label>1 pc</label>
+                    <input type="number" id="productPrice1" min="0" step="0.01">
+                </div>
+
+                <div class="price-item">
+                    <label>2 pcs</label>
+                    <input type="number" id="productPrice2" min="0" step="0.01">
+                </div>
+
+                <div class="price-item">
+                    <label>3 pcs</label>
+                    <input type="number" id="productPrice3" min="0" step="0.01">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
+            <input type="text" id="productCategory">
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" id="Description">
+        </div>
+
+        <div class="modal-buttons">
+
+            <button class="save-btn" onclick="addProduct()">
+                Save
+            </button>
+
+            <button class="cancel-btn" onclick="closeModal()">
+                Cancel
+            </button>
+
+             </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+</body>
+</html>
