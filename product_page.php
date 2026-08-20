@@ -1,4 +1,8 @@
+<?php
+   include '../config.php';
+   $query = mysqli_query($conn, "SELECT * FROM item_table");
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +75,7 @@
     <div class="header-left">
     <div class="header-title">
         <h2>📦 Products</h2>
-        <p>Manage your products and inventory</p>
+        <p>Manage your item_table and inventory</p>
     </div>
 </div>
 
@@ -105,10 +109,6 @@
     </div>
     <div class="summary-card">
         <h2>0</h2>
-        <p>Low Stock</p>
-    </div>
-    <div class="summary-card">
-        <h2>0</h2>
         <p>Categories</p>
     </div>
     <div class="summary-card">
@@ -120,7 +120,7 @@
 <!-- ================= TOOLBAR ================= -->
 
 <div class="toolbar">   
-    <input type="text" placeholder="Search products...">
+    <input type="text" placeholder="Search item_table...">
     <div class="toolbar-buttons">
         <button class="btn-primary" onclick="openAddModal()">
     + New Product
@@ -136,44 +136,114 @@
 </div>
 
     <!-- ================= PRODUCTS ================= -->
-<div class="products" id="products">
-     <div class="product-card">
 
-    <div class="product-image">
-        Product Image
-    </div>
+<?php while ($item_table = mysqli_fetch_assoc($query)) : ?>
 
-    <div class="product-info">
 
-        <h3>blank</h3>
+<div class="card">
+    <div class="products">
+        <!-- Product Image -->
+        <div class="product-image">
+            <?php if (!empty($item_table['ProductImage'])): ?>
 
-        <div class="price-list">
-            <p><strong>1 pc:</strong> ₱100.00</p>
-            <p><strong>2 pcs:</strong> ₱190.00</p>
-            <p><strong>3 pcs:</strong> ₱270.00</p>
+                <img 
+                    src="uploads/<?= htmlspecialchars($item_table['ProductImage']) ?>" 
+                    alt="<?= htmlspecialchars($item_table['ProductName']) ?>"
+                >
+
+            <?php else: ?>
+
+                <span>Product Image</span>
+
+            <?php endif; ?>
         </div>
 
-        <span class="stock">Low Stock (5)</span>
 
-        <div class="product-details">
-            <p><strong>Category:</strong> Feeds</p>
+        <!-- Product Information -->
+        <div class="product-info">
 
-            <p>
-                <strong>Description:</strong>
-                High quality feeds for farm animals.
-            </p>
+            <!-- Product Name -->
+            <h3>
+                <?= htmlspecialchars($item_table['ProductName']) ?>
+            </h3>
+
+
+            <!-- Prices -->
+            <div class="price-list">
+
+                <p>
+                    <strong>Base price:</strong>
+                    ₱<?= number_format($item_table['Price1'], 2) ?>
+                </p>
+
+                <?php if (!empty($item_table['Price2'])) : ?>
+                    <p>
+                        <strong>2 item discount:</strong>
+                        ₱<?= number_format($item_table['Price2'], 2) ?>
+                    </p>
+                <?php endif; ?>
+
+
+                <?php if (!empty($item_table['Price3'])) : ?>
+                    <p>
+                        <strong>3 item discount:</strong>
+                        ₱<?= number_format($item_table['Price3'], 2) ?>
+                    </p>
+                <?php endif; ?>
+
+            </div>
+
+            <!-- Product Details -->
+            <div class="product-details">
+
+                <p>
+                    <strong>Category:</strong>
+                    <?= htmlspecialchars($item_table['Category']) ?>
+                </p>
+
+
+                <p>
+                    <strong>Description:</strong>
+                    <?= htmlspecialchars($item_table['Description']) ?>
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Edit / Delete Buttons -->
+        <div class="product-actions">
+
+            <a 
+                href="update.php?ProductId=<?= $item_table['ProductId'] ?>"
+                class="edit-btn" onclick="openEditModal()"
+            >
+                Edit
+            </a>
+
+
+            <a 
+                href="action.php?ProductId=<?= $item_table['ProductId']?>"
+                class="delete-btn"
+                onclick="return confirm('Are you sure you want to delete this product?');"
+            >
+                Delete
+            </a>
+
         </div>
 
     </div>
 
-    <div class="product-actions">
-        <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
-    </div>
 
     </div>
+
+
 </div>
 
+
+<?php endwhile; ?>
 <!-- ================= PAGINATION ================= -->
 <div class="pagination">
     <button onclick="previousPage()">&lt;</button>
@@ -187,22 +257,24 @@
 
 </main>
 
-</div>
+
 
 <!-- ================= PRODUCT MODAL ================= -->
 
 <div class="modal" id="productModal">
-    <div class="modal-box">
+    <form method="POST" action="action.php">
+
+     <div class="modal-box">
         <h2 id="modalTitle">Add New Product</h2>
        
         <div id="product_img">
             <label>Product Image</label>
-            <input type="file" id="productImage" accept="image/*">
+            <input type="file" name="ProductImage" accept="image/*">
         </div>
 
         <div class="form-group">
             <label>Product Name</label>
-            <input type="text" id="productName">
+            <input type="text" name="ProductName">
         </div>
 
         <div class="form-group">
@@ -211,18 +283,18 @@
             <div class="price-section">
 
                 <div class="price-item">
-                    <label>1 pc</label>
-                    <input type="number" id="productPrice1" min="0" step="0.01">
+                    <label>Base price</label>
+                    <input type="number" name="Price1" min="0" step="0.01">
                 </div>
 
                 <div class="price-item">
-                    <label>2 pcs</label>
-                    <input type="number" id="productPrice2" min="0" step="0.01">
+                    <label>2 item discount</label>
+                    <input type="number" name="Price2" min="0" step="0.01">
                 </div>
 
                 <div class="price-item">
-                    <label>3 pcs</label>
-                    <input type="number" id="productPrice3" min="0" step="0.01">
+                    <label>3 item discount</label>
+                    <input type="number" name="Price3" min="0" step="0.01">
                 </div>
 
             </div>
@@ -230,17 +302,18 @@
 
         <div class="form-group">
             <label>Category</label>
-            <input type="text" id="productCategory">
+            <input type="text" name="Category">
         </div>
 
         <div class="form-group">
             <label>Description</label>
-            <input type="text" id="Description">
+            <input type="text" name="Description">
         </div>
 
         <div class="modal-buttons">
+     </form>
 
-            <button class="save-btn" onclick="addProduct()">
+            <button class="save-btn" type="submit" name="create" onclick= window.location.href='product_page.php'>
                 Save
             </button>
 
@@ -255,7 +328,6 @@
     </div>
 
 </div>
-
 
 <div id="toast" class="toast"></div>
 
