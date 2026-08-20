@@ -1,4 +1,16 @@
 /* =========================
+   PRODUCTS TABLE / GRID
+========================= */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    width: 100%;
+}
+
+
+/* =========================
    PRODUCT CARD
 ========================= */
 
@@ -7,6 +19,8 @@
     border-radius: 11px;
     padding: 10px;
     width: 100%;
+    box-sizing: border-box;
+
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     overflow: hidden;
 }
@@ -29,6 +43,8 @@
 
     color: #888;
     font-size: 11px;
+
+    overflow: hidden;
 }
 
 
@@ -41,7 +57,7 @@
 }
 
 .product-info h3 {
-    margin: 0 0 3px;
+    margin: 0 0 5px;
 
     color: #07543f;
     font-size: 13px;
@@ -57,7 +73,7 @@
 }
 
 .price-list p {
-    margin: 2px 0;
+    margin: 3px 0;
 
     color: #e0b52b;
     font-size: 11px;
@@ -100,7 +116,7 @@
 }
 
 .product-details p {
-    margin: 4px 0;
+    margin: 5px 0;
 
     color: #666;
     font-size: 10px;
@@ -118,14 +134,14 @@
 
 .product-actions {
     display: flex;
-    flex-direction: column;
-    gap: 7px;
+    gap: 6px;
 
     margin-top: 10px;
 }
 
 .product-actions button {
-    width: 100%;
+    flex: 1;
+
     height: 25px;
 
     border: none;
@@ -138,7 +154,9 @@
 }
 
 
-/* EDIT */
+/* =========================
+   EDIT
+========================= */
 
 .edit-btn {
     background: #07543f;
@@ -146,7 +164,9 @@
 }
 
 
-/* DELETE */
+/* =========================
+   DELETE
+========================= */
 
 .delete-btn {
     background: #df514f;
